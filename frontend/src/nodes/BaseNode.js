@@ -18,21 +18,8 @@ export const BaseNode = ({
     return vals;
   }, [data, fields]);
 
-  const containerStyle = {
-    width: 220,
-    minHeight: 80,
-    padding: 8,
-    border: "1px solid #222",
-    borderRadius: 6,
-    background: "#fff",
-    fontFamily: "Arial, sans-serif",
-    fontSize: 13,
-    boxSizing: "border-box",
-    ...style,
-  };
-
   return (
-    <div style={containerStyle}>
+    <div className="bg-gradient-to-b from-slate-900 to-slate-800 rounded-md p-3 border border-white/5 text-white shadow-md" style={style}>
       {handles.map((h, idx) => (
         <Handle
           key={idx}
@@ -43,23 +30,19 @@ export const BaseNode = ({
         />
       ))}
 
-      <div style={{ fontWeight: "700", marginBottom: 6 }}>{title}</div>
+      <div className="flex items-center gap-2 mb-2">
+        <div className="font-semibold text-sm">{title}</div>
+      </div>
 
-      {children}
+      {children && <div className="text-slate-400 text-sm mb-2">{children}</div>}
 
       {fields.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <div className="flex flex-col gap-2">
           {fields.map((f) => (
-            <label
-              key={f.key}
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              <span style={{ fontSize: 11, color: "#333" }}>{f.label}</span>
+            <label key={f.key} className="text-sm text-slate-400">
+              <div className="mb-1">{f.label}</div>
               {f.type === "select" ? (
-                <select
-                  defaultValue={fieldValues[f.key]}
-                  style={{ padding: 4 }}
-                >
+                <select defaultValue={fieldValues[f.key]} className="w-full p-2 rounded bg-white/5 border border-white/6 text-white text-sm">
                   {(f.options || []).map((o) => (
                     <option key={o} value={o}>
                       {o}
@@ -67,11 +50,7 @@ export const BaseNode = ({
                   ))}
                 </select>
               ) : (
-                <input
-                  type={f.type === "number" ? "number" : "text"}
-                  defaultValue={fieldValues[f.key]}
-                  style={{ padding: 6 }}
-                />
+                <input type={f.type === "number" ? "number" : "text"} defaultValue={fieldValues[f.key]} className="w-full p-2 rounded bg-white/5 border border-white/6 text-white text-sm" />
               )}
             </label>
           ))}
