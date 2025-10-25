@@ -42,7 +42,7 @@ export const BaseNode = ({
             <label key={f.key} className="text-sm text-slate-400">
               <div className="mb-1">{f.label}</div>
               {f.type === "select" ? (
-                <select defaultValue={fieldValues[f.key]} className="w-full p-2 rounded bg-white/5 border border-white/6 text-white text-sm">
+                <select defaultValue={fieldValues[f.key]} className="w-full p-2 rounded bg-white/5 border border-white/6 text-white text-sm [&>option]:bg-slate-800">
                   {(f.options || []).map((o) => (
                     <option key={o} value={o}>
                       {o}
