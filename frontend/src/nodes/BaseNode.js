@@ -18,16 +18,40 @@ export const BaseNode = ({
     return vals;
   }, [data, fields]);
 
+  // ensure the node container is positioned so we can place handle labels
+  const containerStyle = {
+    position: style.position || "relative",
+    ...style,
+  };
+
   return (
-    <div className="bg-gradient-to-b from-slate-900 to-slate-800 rounded-md p-3 border border-white/5 text-white shadow-md" style={style}>
+    <div className="bg-gradient-to-b from-slate-900 to-slate-800 rounded-md p-3 border border-white/5 text-white shadow-md" style={containerStyle}>
       {handles.map((h, idx) => (
-        <Handle
-          key={idx}
-          type={h.type}
-          position={h.position || Position.Left}
-          id={`${id}-${h.idSuffix}`}
-          style={h.style}
-        />
+        <React.Fragment key={idx}>
+          <Handle
+            type={h.type}
+            position={h.position || Position.Left}
+            id={`${id}-${h.idSuffix}`}
+            style={h.style}
+          />
+          {h.label && (
+            <div
+              style={{
+                position: "absolute",
+                top: typeof h.style?.top === "number" ? `${h.style.top}px` : h.style?.top || 8,
+                left: (h.position || Position.Left) === Position.Left ? -90 : "calc(100% + 8px)",
+                color: "#cbd5e1",
+                fontSize: 12,
+                padding: "2px 6px",
+                borderRadius: 6,
+                background: "rgba(255,255,255,0.03)",
+                pointerEvents: "none",
+              }}
+            >
+              {h.label}
+            </div>
+          )}
+        </React.Fragment>
       ))}
 
       <div className="flex items-center gap-2 mb-2">
