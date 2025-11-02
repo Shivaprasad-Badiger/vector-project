@@ -1,5 +1,3 @@
-// llmNode.js
-
 import BaseNode from './BaseNode';
 import { Position } from 'reactflow';
 
@@ -10,7 +8,6 @@ export const LLMNode = ({ id, data }) => {
     { idSuffix: 'response', type: 'source', position: Position.Right },
   ];
 
-  // Small description rendered as children
   const children = (
     <div style={{marginBottom: 6}}>
       <div style={{fontSize: 12}}>This is a LLM.</div>
